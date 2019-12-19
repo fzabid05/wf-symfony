@@ -11,6 +11,7 @@
                 <th>Id</th>
                 <th>Name</th>
                 <th>Email</th>
+                <th>Tel</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -20,6 +21,7 @@
                 <td>{{ friend.id }}</td>
                 <td>{{ friend.name }}</td>
                 <td>{{ friend.email }}</td>
+                <td>{{ friend.tel }}</td>
                 <td>
                     <a href="{{ path('friends_show', {'id': friend.id}) }}">show</a>
                     <a href="{{ path('friends_edit', {'id': friend.id}) }}">edit</a>
