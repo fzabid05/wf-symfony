@@ -37,7 +37,7 @@ class Post
     private $created_at;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
      */
     private $author;
 
