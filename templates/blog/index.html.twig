@@ -31,9 +31,9 @@
                       <strong >{{ app.user }}</strong> ||
                       <a class="link text-white" href="./profile">{{ app.user.email }}</a>
                       ||
-                      <a href="./logout" class="link text-white">Se déconnecter</a>
+                      <a href="{{ path('fos_user_security_logout')}}" class="link text-white">Se déconnecter</a>
                       {% else %}
-                      <a href="./login" class="link text-white">Se connecter</a>
+                      <a href="{{ path('fos_user_security_login')}}" class="link text-white">Se connecter</a>
                   {% endif %}
                 </p>
             </div>
