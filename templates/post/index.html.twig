@@ -13,7 +13,7 @@
                 <th>Summary</th>
                 <th>Content</th>
                 <th>Created_at</th>
-                <th>Author</th>
+                <th>user</th>
                 <th>Image</th>
                 <th>actions</th>
             </tr>
@@ -26,8 +26,8 @@
                 <td>{{ post.summary }}</td>
                 <td>{{ post.content }}</td>
                 <td>{{ post.createdAt ? post.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ post.author }}</td>
-                <td>{{ post.image }}</td>
+                <td>{{ post.user }}</td>
+                <td><img src="{{asset('image/post/')}}{{ post.image }}"></td>
                 <td>
                     <a href="{{ path('post_show', {'id': post.id}) }}">show</a>
                     <a href="{{ path('post_edit', {'id': post.id}) }}">edit</a>

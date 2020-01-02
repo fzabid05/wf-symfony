@@ -2,10 +2,38 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <title>{% block title %}Welcome!{% endblock %}</title>
+
         {% block stylesheets %}{% endblock %}
+   
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Laura Bootstrap Theme</title>
+        <!-- <link rel="stylesheet" href="{{ asset('static/assets/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet"> -->
+        
+      
+        <meta name="description" content="Free Bootstrap Theme by BootstrapMade.com">
+        <meta name="keywords" content="free website templates, free bootstrap themes, free template, free bootstrap, free website template">
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Fira+Sans|Roboto:300,400|Questrial|Satisfy">
+        <link rel="stylesheet" type="text/css" href="{{ asset('static/assets/css/font-awesome.min.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('static/assets/css/bootstrap.min.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('static/assets/css/animate.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{ asset('static/assets/css/style.css')}}">
+      </head>
     </head>
     <body>
+         {% for flash in app.session.flashBag.get('danger') %}
+            <div id="notice" class="danger alert alert-danger">
+                {{ flash }}
+            </div>
+        {% endfor %}
+
+        {% for message in app.session.flashBag.get('success') %}
+            <div id="notice" class="danger alert alert-success">
+                {{ message }}
+            </div>
+         {% endfor %}
+
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
