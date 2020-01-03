@@ -17,10 +17,14 @@ class Comments
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
      */
     private $comment;
 
+     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Post")
+     */
+    private $post;
     /**
      * @ORM\Column(type="datetime")
      */
@@ -30,6 +34,8 @@ class Comments
     {
         return $this->id;
     }
+    
+   
 
     public function getComment(): ?string
     {
