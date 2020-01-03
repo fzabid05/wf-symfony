@@ -47,4 +47,13 @@ class PostRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function getLastInserted($entity, $amount)
+    {
+        return $this->getEntityManager()
+                    ->createQuery(
+                        "SELECT e FROM $entity e ORDER BY e.id DESC"
+                    )
+                    ->setMaxResults($amount)
+                    ->getResult();
+    }
 }
