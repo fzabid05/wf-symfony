@@ -56,4 +56,15 @@ class PostRepository extends ServiceEntityRepository
                     ->setMaxResults($amount)
                     ->getResult();
     }
+
+    public function getLastInsertedAjax($entity, $amount)
+    {
+        return $this->getEntityManager()
+                    ->createQuery(
+                        "SELECT e.id, e.title, e.created_at,e.summary,e.image, u.username FROM $entity e JOIN e.user u ORDER BY e.id DESC"
+
+                    )
+                    ->setMaxResults($amount)
+                    ->getResult();
+    }
 }
