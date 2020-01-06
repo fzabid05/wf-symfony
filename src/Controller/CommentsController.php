@@ -34,18 +34,13 @@ class CommentsController extends AbstractController
         $form = $this->createForm(CommentsType::class, $comment);
         $form->handleRequest($request);
 
-        if(!$this->getUser()) {
-            $this->addFlash('notice', 'You must be identified to access this section');
-
-            return $this->redirectToRoute('comments_index');
-        }
-
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+
+            $comment->setUser($this->getUser());
+
             $entityManager->persist($comment);
             $entityManager->flush();
-
-            $this->addFlash('success', 'bravo');
             
             return $this->redirectToRoute('comments_index');
         }

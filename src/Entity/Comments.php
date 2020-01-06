@@ -20,15 +20,23 @@ class Comments
      * @ORM\Column(type="text")
      */
     private $comment;
-
-     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Post")
-     */
-    private $post;
-    /**
+/**
      * @ORM\Column(type="datetime")
      */
     private $created_at;
+     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     */
+    private $user;
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Post")
+     */
+    private $post;
+    
+    public function __construct()
+    {
+        $this->created_at = new \Datetime;
+    }
 
     public function getId(): ?int
     {
@@ -57,6 +65,30 @@ class Comments
     public function setCreatedAt(\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getPost(): ?Post
+    {
+        return $this->post;
+    }
+
+    public function setPost(?Post $post): self
+    {
+        $this->post = $post;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

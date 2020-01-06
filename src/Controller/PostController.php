@@ -10,7 +10,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
-
+use App\Entity\Comments;
+use App\Form\CommentsType;
 /**
  * @Route("/post")
  */
@@ -43,10 +44,9 @@ class PostController extends AbstractController
             return $this->redirectToRoute('post_index');
         }
         
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-
             $post->setUser($this->getUser());
             
             $entityManager->persist($post);
@@ -55,20 +55,45 @@ class PostController extends AbstractController
             $this->addFlash('success', 'You are connect');
             return $this->redirectToRoute('post_index');
         }
+       
 
         return $this->render('post/new.html.twig', [
             'post' => $post,
             'form' => $form->createView(),
+           
         ]);
     }
 
     /**
-     * @Route("/{id}", name="post_show", methods={"GET"})
+     * @Route("/{id}", name="post_show", methods={"GET","POST"})
      */
-    public function show(Post $post): Response
+    public function show(Post $post, Request $request): Response
     {
+        /* return $this->render('post/show.html.twig', [
+            'post' => $post,
+        ]); */
+        $comment = new Comments();
+        $form = $this->createForm(CommentsType::class, $comment);
+        $form->handleRequest($request);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        if ($form->isSubmitted() && $form->isValid()) {
+           
+
+            $comment->setUser($this->getUser());
+
+            $comment->setPost($post);
+
+            $entityManager->persist($comment);
+            $entityManager->flush();
+            return $this->redirectToRoute('post_index');
+        }
+        $commentaires = $entityManager->getRepository('App:Comments')->findByPost($post);
+
         return $this->render('post/show.html.twig', [
             'post' => $post,
+            'form' => $form->createView(),
+            'comments' =>$commentaires
         ]);
     }
 
@@ -118,4 +143,7 @@ class PostController extends AbstractController
             'posts' => $posts
         ));
     }
+
+    
+
 }
